@@ -33,6 +33,7 @@ export default function ProductForm({
   }
 
   async function uploadImages(event) {
+    console.log("I feel clicked");
     const files = event.target?.files;
     if (files?.length > 0) {
       const data = new FormData();
@@ -58,7 +59,7 @@ export default function ProductForm({
       />
       <label>Photos</label>
       <div className="mb-2">
-        <label className="w-24 h-24 flex items-center cursor-pointer justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className="w-24 h-24 flex items-center cursor-pointer justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200" onClick={() => document.getElementById('fileInput').click()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -74,7 +75,7 @@ export default function ProductForm({
             />
           </svg>
           <div>Upload</div>
-          <input type="file" onChange={uploadImages} className="hidden" />
+          <input id="fileInput" type="file" onChange={uploadImages} className="hidden"/>
         </label>
         {!images?.length && <div>No photos for this product.</div>}
       </div>
