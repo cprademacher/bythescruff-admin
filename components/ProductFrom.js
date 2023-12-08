@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -18,7 +19,7 @@ export default function ProductForm({
   console.log({ _id });
   async function saveProduct(event) {
     event.preventDefault();
-    const data = { title, description, price };
+    const data = { title, description, price, images };
     if (_id) {
       // update
       await axios.put("/api/products", { ...data, _id });
@@ -58,8 +59,13 @@ export default function ProductForm({
         onChange={(e) => setTitle(e.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2">
-        
+      <div className="mb-2 flex flex-wrap gap-2">
+        {!!images?.length &&
+          images.map((link) => (
+            <div className="h-24" key={link}>
+              <img src={link} alt="Photo" className="rounded-lg" />
+            </div>
+          ))}
         <label className="w-24 h-24 flex items-center cursor-pointer justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +84,6 @@ export default function ProductForm({
           <div>Upload</div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
-        {!images?.length && <div>No photos for this product.</div>}
       </div>
       <label>Description</label>
       <textarea
