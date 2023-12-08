@@ -2,14 +2,9 @@ import multiparty from "multiparty";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import fs from "fs";
 import mime from "mime-types";
-import { mongooseConnect } from "@/lib/mongoose";
-import { isAdminRequest } from "@/pages/api/auth/[...nextauth]";
 const bucketName = "bythescruff-admin";
 
 export default async function handle(req, res) {
-  await mongooseConnect();
-  await isAdminRequest(req, res);
-
   const form = new multiparty.Form();
   const { fields, files } = await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
@@ -21,7 +16,7 @@ export default async function handle(req, res) {
 
   const client = new S3Client({
     region: "us-east-2",
-    credential: {
+    credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY,
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
     },
@@ -31,7 +26,7 @@ export default async function handle(req, res) {
   for (const file of files.file) {
     const ext = file.originalFilename.split(".").pop();
     const newFilename = Date.now() + "." + ext;
-    console.log({ ext, file });
+    console.log({ ext, file, newFilename });
     await client.send(
       new PutObjectCommand({
         Bucket: bucketName,
