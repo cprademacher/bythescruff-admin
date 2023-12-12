@@ -20,7 +20,7 @@ export default function Categories() {
 
   async function saveCategory(event) {
     event.preventDefault();
-    await axios.post("/api/categories", { name });
+    await axios.post("/api/categories", { name, parentCategory });
     setName("");
     fetchCategories();
   }
@@ -59,6 +59,7 @@ export default function Categories() {
         <thead>
           <tr>
             <td>Category Name</td>
+            <td>Parent Category</td>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +67,7 @@ export default function Categories() {
             categories.map((category) => (
               <tr key={category._id}>
                 <td>{category.name}</td>
+                <td>{category?.parent?.name}</td>
               </tr>
             ))}
         </tbody>
