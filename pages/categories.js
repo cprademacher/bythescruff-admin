@@ -52,11 +52,12 @@ function Categories({ swal }) {
         confirmButtonColor: "#d55",
         reverseButtons: true,
       })
-      .then((result) => {
-        // when confirmed and promise resolved
-      })
-      .catch((error) => {
-        // when promise rejected...
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const { _id } = category;
+          await axios.delete("/api/categories?_id=" + _id);
+          fetchCategories();
+        }
       });
   }
 
