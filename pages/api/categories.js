@@ -11,17 +11,25 @@ export default async function handle(req, res) {
 
   if (method === "POST") {
     const { name, parentCategory } = req.body;
-    const categoryDoc = await Category.create({ name, parent: parentCategory });
+    const parentObjectId = isValidObjectId(parentCategory)
+      ? parentCategory
+      : null;
+
+    const categoryDoc = await Category.create({ name, parent: parentObjectId });
     res.json(categoryDoc);
   }
 
   if (method === "PUT") {
     const { name, parentCategory, _id } = req.body;
+    const parentObjectId = isValidObjectId(parentCategory)
+      ? parentCategory
+      : null;
+
     const categoryDoc = await Category.updateOne(
       { _id },
       {
         name,
-        parent: parentCategory,
+        parent: parentObjectId,
       }
     );
     res.json(categoryDoc);
@@ -32,4 +40,10 @@ export default async function handle(req, res) {
     await Category.deleteOne({ _id });
     res.json("Ok");
   }
+}
+
+function isValidObjectId(value) {
+  // Use a library like mongoose to validate ObjectId
+  // In this example, assuming a simple ObjectId validation
+  return /^[0-9a-fA-F]{24}$/.test(value);
 }
