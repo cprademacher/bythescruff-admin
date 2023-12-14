@@ -68,6 +68,12 @@ export default function ProductForm({
     setImages(images);
   }
 
+  const properties = [];
+  if (categories.length > 0 && category) {
+    const selectedCategoryInfo = categories.find(({ _id }) => _id === category);
+    console.log({ selectedCategoryInfo });
+  }
+
   return (
     <form onSubmit={saveProduct}>
       <label>Product Name</label>
@@ -90,6 +96,7 @@ export default function ProductForm({
             </option>
           ))}
       </select>
+      {categories.length > 0 && <div></div>}
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
