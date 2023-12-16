@@ -124,18 +124,20 @@ export default function ProductForm({
       </select>
       {propertiesToFill.length > 0 &&
         propertiesToFill.map((p) => (
-          <div key={p._id} className="flex gap-1">
-            <div>{p.name}</div>
-            <select
-              value={productProperties[p.name]}
-              onChange={(event) => setProductProp(p.name, event.target.value)}
-            >
-              {p.values.map((v) => (
-                <option value={v} key={v._id}>
-                  {v}
-                </option>
-              ))}
-            </select>
+          <div key={p._id} className="">
+            <label>{p.name}</label>
+            <div>
+              <select
+                value={productProperties[p.name]}
+                onChange={(event) => setProductProp(p.name, event.target.value)}
+              >
+                {p.values.map((v) => (
+                  <option value={v} key={v._id}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         ))}
       <label>Photos</label>
