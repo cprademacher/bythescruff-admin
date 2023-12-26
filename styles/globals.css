@@ -48,7 +48,8 @@ table.basic {
   @apply w-full bg-white rounded-sm shadow-md;
 }
 
-table.basic thead tr td {
+table.basic thead tr td,
+table.basic thead tr th {
   @apply text-sm text-gray-600 uppercase border-b border-gray-200 px-4 py-2;
 }
 
@@ -58,4 +59,15 @@ table.basic tr td {
 
 table.basic a {
   @apply px-4 py-1 rounded-md inline-flex mx-1 items-center gap-1 text-sm;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

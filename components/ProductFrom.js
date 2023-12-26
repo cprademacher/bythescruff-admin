@@ -16,7 +16,7 @@ export default function ProductForm({
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
-  const [category, setCategory] = useState(assignedCategory || "");
+  const [category, setCategory] = useState(assignedCategory || null);
   const [productProperties, setProductProperties] = useState(
     assignedProperties || {}
   );
@@ -125,7 +125,7 @@ export default function ProductForm({
       {propertiesToFill.length > 0 &&
         propertiesToFill.map((p) => (
           <div key={p._id} className="">
-            <label>{p.name[0].toUpperCase()+p.name.substring(1)}</label>
+            <label>{p.name[0].toUpperCase() + p.name.substring(1)}</label>
             <div>
               <select
                 value={productProperties[p.name]}
@@ -149,7 +149,10 @@ export default function ProductForm({
         >
           {!!images?.length &&
             images.map((link) => (
-              <div className="h-24 bg-white p-2 shadow-sm rounded-sm border border-gray-200" key={link}>
+              <div
+                className="h-24 bg-white p-2 shadow-sm rounded-sm border border-gray-200"
+                key={link}
+              >
                 <img src={link} alt="Photo" className="rounded-md" />
               </div>
             ))}
@@ -175,7 +178,11 @@ export default function ProductForm({
             />
           </svg>
           <div>Add Image</div>
-          <input type="file" onChange={uploadImages} className="hidden" />
+          <input
+            type="file"
+            onChange={uploadImages}
+            className="visually-hidden"
+          />
         </label>
       </div>
       <label>Description</label>
