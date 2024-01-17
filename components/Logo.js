@@ -18,7 +18,7 @@ export default function Logo() {
         />
       </svg>
 
-      <span className="">ByTheScruffAdmin</span>
+      <span className="">EcommerceAdmin</span>
     </Link>
   );
 }

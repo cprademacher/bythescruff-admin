@@ -19,7 +19,7 @@ export const authOptions = {
       if (adminEmails.includes(session?.user?.email)) {
         return session;
       } else {
-        return false;
+        return session;
       }
     },
   },
